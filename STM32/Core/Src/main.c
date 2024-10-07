@@ -46,7 +46,8 @@
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-
+int led_index = 0;
+int led_buffer[LED_NUMBER] = {1, 2};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -92,14 +93,40 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, GPIO_PIN_SET);
   HAL_TIM_Base_Start_IT(&htim2);
-
+  setTimer0(DURATION_0);
+  setTimer1(DURATION_1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  display7SEG(led_buffer[led_index]);
+	  if (timer0_flag == 1){
+		  setTimer0(DURATION_0);
+		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	  }
+	  if (timer1_flag == 1){
+		  setTimer1(DURATION_1);
+		  switch (led_index){
+		  case 0:
+			  led_index = 1;
+			  HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, GPIO_PIN_SET);
+			  HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, GPIO_PIN_RESET);
+			  break;
+		  case 1:
+			  led_index = 0;
+			  HAL_GPIO_WritePin(EN_0_GPIO_Port, EN_0_Pin, GPIO_PIN_RESET);
+			  HAL_GPIO_WritePin(EN_1_GPIO_Port, EN_1_Pin, GPIO_PIN_SET);
+			  break;
+		  default:
+			  break;
+		  }
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
