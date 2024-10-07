@@ -25,14 +25,14 @@ void setTimer1(int duration){
 void runTimer(){
 	if (timer0_counter > 0){
 		timer0_counter--;
-	}
 		if (timer0_counter <= 0){
 			timer0_flag = 1;
+		}
 	}
 	if (timer1_counter > 0){
 			timer1_counter--;
-		}
 		if (timer1_counter <= 0){
 			timer1_flag = 1;
 		}
+	}
 }
