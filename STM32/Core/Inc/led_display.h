@@ -15,6 +15,7 @@
 extern int led_index;
 extern int led_buffer[LED_NUMBER];
 extern int matrix_index;
+extern int matrix_offset;
 
 extern int hour;
 extern int minute;

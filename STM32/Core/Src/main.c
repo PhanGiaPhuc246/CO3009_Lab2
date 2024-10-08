@@ -38,6 +38,7 @@
 #define DURATION_2 100
 #define DURATION_3 100
 #define DURATION_4 25
+#define DURATION_5 400
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,6 +52,7 @@ TIM_HandleTypeDef htim2;
 /* USER CODE BEGIN PV */
 int led_index = 0;
 int matrix_index = 0;
+int matrix_offset = 0;
 int led_buffer[LED_NUMBER] = {0, 0, 0, 0};
 /* USER CODE END PV */
 
@@ -105,6 +107,7 @@ int main(void)
   setTimer2(DURATION_2);
   setTimer3(DURATION_3);
   setTimer4(DURATION_4);
+  setTimer5(DURATION_5);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -146,6 +149,10 @@ int main(void)
 	  if (timer4_flag == 1) {
 		  setTimer4(DURATION_4);
 		  matrix_index = (matrix_index + 1) % MATRIX_NUMBER;
+	  }
+	  if (timer5_flag == 1) {
+		  setTimer5(DURATION_5);
+		  matrix_offset = (matrix_offset + 1) % MATRIX_NUMBER;
 	  }
     /* USER CODE END WHILE */
 
