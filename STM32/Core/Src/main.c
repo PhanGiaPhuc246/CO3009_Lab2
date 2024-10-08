@@ -38,7 +38,7 @@
 #define DURATION_2 100
 #define DURATION_3 100
 #define DURATION_4 25
-#define DURATION_5 400
+#define DURATION_5 200
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,9 +51,9 @@ TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
 int led_index = 0;
+int led_buffer[LED_NUMBER] = {0, 0, 0, 0};
 int matrix_index = 0;
 int matrix_offset = 0;
-int led_buffer[LED_NUMBER] = {0, 0, 0, 0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,7 +118,7 @@ int main(void)
 	  update7SEG(led_index);
 	  updateLEDMatrix(matrix_index);
 	  display7SEG(led_buffer[led_index]);
-	  displayLEDMatrix('A', matrix_index);
+	  displayLEDMatrix('A', (matrix_index + matrix_offset) % MATRIX_NUMBER);
 	  if (timer0_flag == 1) {
 		  setTimer0(DURATION_0);
 		  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
