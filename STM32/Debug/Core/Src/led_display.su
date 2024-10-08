@@ -1,3 +1,5 @@
 led_display.c:13:6:display7SEG	16	static
 led_display.c:22:6:update7SEG	16	static
 led_display.c:57:6:updateClockBuffer	4	static
+led_display.c:143:6:displayLEDMatrix	16	static
+led_display.c:158:6:updateLEDMatrix	16	static
